@@ -131,12 +131,13 @@ exports.findRank = (username, vitalID, start, end) => {
         ])
         .then(data => {
             const count = data.length;
-            const rank = data.findIndex((item) => item._id === username);
+            const rank = data[data.findIndex((item) => item._id === username)].rank;
             const percentile = (rank/count)*100;
+
             resolve({
                 username: username,
                 vital_id: vitalID,
-                insight: `Your ${vitalID} is in the ${percentile} percentile`,
+                insight: `Your ${vitalID} is in the ${Math.round(percentile)} percentile`,
                 start_timestamp: start,
                 end_timestamp: end
             });
